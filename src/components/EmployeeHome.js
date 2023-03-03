@@ -5,6 +5,8 @@ export default function EmployeeHome()
             <h1>
                 Employee Home
             </h1>
+        
+            
         </div>
 
     )

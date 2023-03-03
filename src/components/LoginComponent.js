@@ -1,10 +1,13 @@
 import { useReducer,useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { json, useNavigate } from 'react-router-dom';
+import { login } from './slice';
 
 import '../CSS/loginstyle.css';
 
 export default function LoginComponent() 
 {
+
 
    const init = {
     uid: "",
@@ -24,6 +27,7 @@ export default function LoginComponent()
    const [info,dispatch] =useReducer(reducer,init);
    const [msg,setMsg] = useState("")
    const navigate = useNavigate();
+   const reduxaction = useDispatch();
 
    const sendData = (e)=>
    {
@@ -54,12 +58,19 @@ export default function LoginComponent()
               }
               else
               {
+                  reduxaction(login(true))
+                  // to keep info in key valye pair to use in session
+                  localStorage.setItem("loggedinfo",JSON.stringify(obj))
+                  console.log(JSON.stringify(obj));
+
                  if(obj.status === 0)
                  {
                    alert("Request has not been approved")
                  }
                   else
                   {
+
+
                     // console.log("in else")
                     if(obj.role_id.role_id===2)
                     {
@@ -143,7 +154,7 @@ const resetBtn = () =>
 
 
     return (
-      <div className='loginbox'>
+      <div className='c-loginbox'>
         <h1>  Login Form </h1>
 
         <div className="login">
